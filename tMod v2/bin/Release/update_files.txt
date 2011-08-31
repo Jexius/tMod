@@ -1,5 +1,0 @@
-lua\core\hook.lua
-changelog.txt
-readme.txt
-Configure.bat
-TerrariaServer.exe
