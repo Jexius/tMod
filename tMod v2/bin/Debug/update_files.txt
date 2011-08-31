@@ -1,3 +1,0 @@
-lua\core\hook.lua
-changelog.txt
-readme.txt
