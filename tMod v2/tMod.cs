@@ -190,11 +190,4 @@ namespace tMod_v3
             throw new Exception("Method " + name + " does not exist.");
         }
     }
-    public class Test
-    {
-        public static void runSomething()
-        {
-            Console.WriteLine("This is me... running something...");
-        }
-    }
 }
