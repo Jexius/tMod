@@ -1,0 +1,69 @@
+Note: if you're wondering why tMod updated, it's because of v1.0.6.1 (stupid name)
+People complained because they can't manage to copy it themselves, so I posted an update including it.
+
+This version: v3.1.5
+    New in this version:
+    * Added crash preventions in ListenForClients (should stop most if not all crashes)
+    * Updated the Mana limit.
+
+    ====Previous versions====
+    v3.1.4:
+    * Fixed /me
+    * Fixed /party
+    * Fixed /reply
+    * Fixed ServerPassword <-- my bad, sorry
+    * Remove meaningless crap
+    * Include Group_Edit.exe
+
+    v3.1.3:
+    * Scrapped v3.5 source code due to shittyness (I won't go into much detail, but the way I did it was shit)
+    * Began re-writing v3.5 features
+    * Added CanBuild group setting
+    * ADDED IN-SERVER WORLD GENERATION WHEN WORLD IS NOT FOUND!
+    * Meddled with some lua stuff to make it work better
+    * Added easter egg (complaints can be emailed to an invalid email address)
+
+    v3.1.2:
+    * Fixed for v1.0.5
+    * Added BlockTileSquare setting
+NOTE: THIS IS NOT THE V3.5 UPDATE, THAT REQUIRES MORE TESTING, THIS WAS A QUICK UPDATE FOR V1.0.6 OF TERRARIA!
+
+    v3.1.1:
+    * Fixed various bugs
+    * Added /stupidize and /butterfingers
+          - Don't know what they are? Try them out on yourself with /stupidize {name} ;D
+          - Thanks to Dinnerbone for the idea, years ago. Like really, he made something called GSBOS and was using it on a forum called script-o-matic... meh I won't go into that!
+
+    v3.1:
+    * Fixed BindPort, BindAddress
+    * Added -config argument
+    * Added Configure.bat
+    * Introduced auto-installation
+
+    v3.0.9:
+    * Fixed about 8000 bugs and exceptions
+    * No longer supporting SqlServerCe
+    * Some other stuff, can't remember, LOL.
+
+    v3.0.8:
+    * Re-added password cryptography. Sorry, I removed it as a test. Please delete your database if any users have registered. Again, I'm sorry.
+
+    v3.0.7:
+    * SQLite support.
+    * Fixed /drop /give etc
+    * Fixed some group bugs, sorry
+    * Added readme.txt
+    * Messed with teleportation, appears to be working fine.
+
+    v3.0.6:
+    * Fixed various bugs regarding Groups.xml
+    * Fixed exception when player doesn't have a group (I swear I fixed this before... it came back though... LOL)
+    * Fixed the most common player-crash exploit
+    * Started to work on a fix for a MAJOR exploit I found in Terraria. It's semi-fixed.
+    Anyone with a brain can still do it, except AFAIK I'm the only one that's found it so far.
+    * Fixed various teleportation bugs, some still exist.
+    * Created this file!
+    Note: Exploits are all TERRARIA exploits and not tMod, consider yourselves lucky I'm fixing them.
+
+    v3.0.5:
+    * Logs just started. May re-create old changelogs at some point.

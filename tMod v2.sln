@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tMod v3", "tMod v2\tMod v3.csproj", "{8535C7E2-C7C7-4363-B186-9D2FE5CD99E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+		tMod Config|x86 = tMod Config|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8535C7E2-C7C7-4363-B186-9D2FE5CD99E0}.Debug|x86.ActiveCfg = Debug|x86
+		{8535C7E2-C7C7-4363-B186-9D2FE5CD99E0}.Debug|x86.Build.0 = Debug|x86
+		{8535C7E2-C7C7-4363-B186-9D2FE5CD99E0}.Release|x86.ActiveCfg = Release|x86
+		{8535C7E2-C7C7-4363-B186-9D2FE5CD99E0}.Release|x86.Build.0 = Release|x86
+		{8535C7E2-C7C7-4363-B186-9D2FE5CD99E0}.tMod Config|x86.ActiveCfg = tMod Config|x86
+		{8535C7E2-C7C7-4363-B186-9D2FE5CD99E0}.tMod Config|x86.Build.0 = tMod Config|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

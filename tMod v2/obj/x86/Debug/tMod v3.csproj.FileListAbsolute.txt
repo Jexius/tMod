@@ -1,0 +1,23 @@
+C:\Documents and Settings\Administrator\My Documents\tMod v2\tMod v2\bin\Debug\tMod v3.exe.config
+C:\Documents and Settings\Administrator\My Documents\tMod v2\tMod v2\bin\Debug\tMod v3.exe
+C:\Documents and Settings\Administrator\My Documents\tMod v2\tMod v2\bin\Debug\tMod v3.pdb
+C:\Documents and Settings\Administrator\My Documents\tMod v2\tMod v2\bin\Debug\LuaInterface.dll
+C:\Documents and Settings\Administrator\My Documents\tMod v2\tMod v2\bin\Debug\Mono.Cecil.dll
+C:\Documents and Settings\Administrator\My Documents\tMod v2\tMod v2\bin\Debug\lua51.dll
+C:\Documents and Settings\Administrator\My Documents\tMod v2\tMod v2\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\tMod v2\tMod v2\obj\x86\Debug\tMod v3.g.resources
+C:\Documents and Settings\Administrator\My Documents\tMod v2\tMod v2\obj\x86\Debug\tMod_v3.Resources.Default.resources
+C:\Documents and Settings\Administrator\My Documents\tMod v2\tMod v2\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\Administrator\My Documents\tMod v2\tMod v2\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\Administrator\My Documents\tMod v2\tMod v2\obj\x86\Debug\tMod v3.exe
+C:\Documents and Settings\Administrator\My Documents\tMod v2\tMod v2\obj\x86\Debug\tMod v3.pdb
+C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\bin\Debug\tMod v3.exe.config
+C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\obj\x86\Debug\tMod v3.exe
+C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\obj\x86\Debug\tMod v3.pdb
+C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\bin\Debug\tMod v3.exe
+C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\bin\Debug\tMod v3.pdb
+C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\bin\Debug\LuaInterface.dll
+C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\bin\Debug\Mono.Cecil.dll
+C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\bin\Debug\System.Data.SQLite.dll
+C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\bin\Debug\lua51.dll
+C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\obj\x86\Debug\ResolveAssemblyReference.cache

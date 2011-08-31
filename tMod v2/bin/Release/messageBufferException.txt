@@ -1,0 +1,75 @@
+11/07/2011 19:12:26
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.MissingMethodException: Method not found: '?'.
+   at Terraria.NetMessage.SendData(Int32 msgType, Int32 remoteClient, Int32 ignoreClient, String text, Int32 number, Single number2, Single number3, Single number4, Int32 number5)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle._InvokeMethodFast(IRuntimeMethodInfo method, Object target, Object[] arguments, SignatureStruct& sig, MethodAttributes methodAttributes, RuntimeType typeOwner)
+   at System.RuntimeMethodHandle.InvokeMethodFast(IRuntimeMethodInfo method, Object target, Object[] arguments, Signature sig, MethodAttributes methodAttributes, RuntimeType typeOwner)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture, Boolean skipVisibilityChecks)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Terraria.NetMessageMod.SendData(Int32 msgType, Int32 remoteClient, Int32 ignoreClient, String d, Int32 e, Single f, Single g, Single h, Int32 i) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\NetMessageMod.cs:line 28
+   at Terraria.MessageBufferMod.OnVersion(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 476
+   at CallSite.Target(Closure , CallSite , Type , Object , Int32 , Int32 )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   at Terraria.MessageBufferMod.GetDataMod(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 232
+
+15/07/2011 23:59:05
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.MissingMethodException: Method not found: '?'.
+   at Terraria.NetMessage.SendData(Int32 msgType, Int32 remoteClient, Int32 ignoreClient, String text, Int32 number, Single number2, Single number3, Single number4, Int32 number5)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle._InvokeMethodFast(IRuntimeMethodInfo method, Object target, Object[] arguments, SignatureStruct& sig, MethodAttributes methodAttributes, RuntimeType typeOwner)
+   at System.RuntimeMethodHandle.InvokeMethodFast(IRuntimeMethodInfo method, Object target, Object[] arguments, Signature sig, MethodAttributes methodAttributes, RuntimeType typeOwner)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture, Boolean skipVisibilityChecks)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Terraria.NetMessageMod.SendData(Int32 msgType, Int32 remoteClient, Int32 ignoreClient, String d, Int32 e, Single f, Single g, Single h, Int32 i) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\NetMessageMod.cs:line 28
+   at Terraria.MessageBufferMod.OnVersion(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 476
+   at CallSite.Target(Closure , CallSite , Type , Object , Int32 , Int32 )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   at Terraria.MessageBufferMod.GetDataMod(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 232
+
+18/07/2011 02:34:13
+System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at Terraria.MessageBufferMod.OnChat(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 1477
+   at CallSite.Target(Closure , CallSite , Type , Object , Int32 , Int32 )
+   at Terraria.MessageBufferMod.GetDataMod(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 273
+
+18/07/2011 02:34:15
+System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at Terraria.MessageBufferMod.OnChat(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 1477
+   at CallSite.Target(Closure , CallSite , Type , Object , Int32 , Int32 )
+   at Terraria.MessageBufferMod.GetDataMod(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 273
+
+18/07/2011 02:34:27
+System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at Terraria.MessageBufferMod.OnChat(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 1477
+   at CallSite.Target(Closure , CallSite , Type , Object , Int32 , Int32 )
+   at Terraria.MessageBufferMod.GetDataMod(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 273
+
+10/08/2011 11:30:13
+System.Data.SQLite.SQLiteException (0x80004005): Abort due to constraint violation
+column Username is not unique
+   at System.Data.SQLite.SQLite3.Reset(SQLiteStatement stmt)
+   at System.Data.SQLite.SQLite3.Step(SQLiteStatement stmt)
+   at System.Data.SQLite.SQLiteDataReader.NextResult()
+   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
+   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.SQLite.SQLiteCommand.ExecuteNonQuery()
+   at tMod_v3.Database.InsertRegistration(Int32 userid, String hash) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Database.cs:line 235
+   at tMod_v3.Session.Register(String hash) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Session.cs:line 106
+   at tMod_v3.ServerCommandHandler.OnRegisterCommand(Int32 player, String pwd) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\ServerCommandHandler.cs:line 1652
+   at tMod_v3.ServerCommandHandler.ServerModCommand(Int32 player, String text) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\ServerCommandHandler.cs:line 603
+   at Terraria.MainMod.ServerModCommand(Byte player, String text) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MainMod.cs:line 208
+   at Terraria.MessageBufferMod.OnChat(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 1459
+   at CallSite.Target(Closure , CallSite , Type , Object , Int32 , Int32 )
+   at Terraria.MessageBufferMod.GetDataMod(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 273
+
+10/08/2011 11:34:15
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: Cannot implicitly convert type 'bool' to 'byte'
+   at CallSite.Target(Closure , CallSite , Object )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   at Terraria.MessageBufferMod.OnAvatar(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 671
+   at CallSite.Target(Closure , CallSite , Type , Object , Int32 , Int32 )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute4[T0,T1,T2,T3,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+   at Terraria.MessageBufferMod.GetDataMod(Object inst, Int32 start, Int32 length) in C:\Documents and Settings\Administrator\My Documents\tMod v3\tMod v2\Terraria\MessageBufferMod.cs:line 240
+

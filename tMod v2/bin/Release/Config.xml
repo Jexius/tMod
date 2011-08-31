@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BindAddress>0.0.0.0</BindAddress>
+  <BindPort>7778</BindPort>
+  <PlayerSlots>100</PlayerSlots>
+  <CheckForUpdates>true</CheckForUpdates>
+  <WorldPath>world1.wld</WorldPath>
+  <Database>%CD%\tMod\Database.sdf</Database>
+  <ServerPassword />
+  <MOTD>Welcome to a tMod powered server!</MOTD>
+  <RequireAlphaNumericName>false</RequireAlphaNumericName>
+  <RequireHardcoreCharacter>false</RequireHardcoreCharacter>
+  <EnableRollbackTrimming>true</EnableRollbackTrimming>
+  <AutomaticallyTrimRollbacks>false</AutomaticallyTrimRollbacks>
+  <MaximumRollbackEntries>10000000</MaximumRollbackEntries>
+  <AllowMassDestruction>false</AllowMassDestruction>
+  <KickMassDestruction>false</KickMassDestruction>
+  <BanMassDestruction>false</BanMassDestruction>
+  <MassDestructionSensitivity>20</MassDestructionSensitivity>
+  <AllowMassConstruction>false</AllowMassConstruction>
+  <KickMassConstruction>false</KickMassConstruction>
+  <BanMassConstruction>false</BanMassConstruction>
+  <MassConstructionSensitivity>5</MassConstructionSensitivity>
+  <UseBuiltInAntiSpam>true</UseBuiltInAntiSpam>
+  <AllowExplosives>false</AllowExplosives>
+  <KickExplosives>true</KickExplosives>
+  <AllowConstruction>true</AllowConstruction>
+  <AllowDestruction>true</AllowDestruction>
+  <AllowLava>true</AllowLava>
+  <AllowWater>true</AllowWater>
+  <AllowSpikes>true</AllowSpikes>
+  <AllowSpawnNpcs>false</AllowSpawnNpcs>
+  <AllowChest>true</AllowChest>
+  <AllowSignEditing>true</AllowSignEditing>
+  <AllowPlayerItemDropping>true</AllowPlayerItemDropping>
+  <KickHealthHack>true</KickHealthHack>
+  <KickManaHack>true</KickManaHack>
+  <KickItemStackHack>true</KickItemStackHack>
+  <KickDamageHack>true</KickDamageHack>
+  <KickSpawnNpc>true</KickSpawnNpc>
+  <KickInvalidTileEdits>true</KickInvalidTileEdits>
+  <KickLiquidHack>true</KickLiquidHack>
+  <KickSendTileSquareHack>true</KickSendTileSquareHack>
+  <BlockRegistration>false</BlockRegistration>
+  <RequireRegistration>false</RequireRegistration>
+  <RequireRegistrationForChat>false</RequireRegistrationForChat>
+  <RequireRegistrationForDoors>false</RequireRegistrationForDoors>
+  <Peaceful>false</Peaceful>
+  <AdvertEnabled>true</AdvertEnabled>
+  <MaximumSpawns>4</MaximumSpawns>
+  <SpawnRate>1000</SpawnRate>
+  <PluginDirectory>tMod\Plugins</PluginDirectory>
+  <PluginDataDirectory>tMod\Plugins\Data</PluginDataDirectory>
+  <Plugins />
+  <Ops>
+    <string>127.0.0.1</string>
+    <string>94.171.244.143</string>
+  </Ops>
+  <Mods />
+  <AlternativePasswords />
+  <ShowKickNotifications>true</ShowKickNotifications>
+  <ShowBanNotifications>true</ShowBanNotifications>
+  <AllowRegistrationPasswordForServerPassword>false</AllowRegistrationPasswordForServerPassword>
+  <RequireNewCharacterIfNotRegistered xsi:type="xsd:boolean">false</RequireNewCharacterIfNotRegistered>
+  <RequireNewCharacterAlways xsi:type="xsd:boolean">false</RequireNewCharacterAlways>
+  <ShowNPCNotifications>true</ShowNPCNotifications>
+  <SpawnProtectionRadius>0</SpawnProtectionRadius>
+  <KickAvatarRenameHack>true</KickAvatarRenameHack>
+  <KickImpersonatingName>true</KickImpersonatingName>
+  <KickInvalidName>true</KickInvalidName>
+  <KickSpikeHack>true</KickSpikeHack>
+  <OpMePassword>Disabled</OpMePassword>
+  <ForceChatColors>true</ForceChatColors>
+  <ColorOpChat>true</ColorOpChat>
+  <ColorModChat>true</ColorModChat>
+  <OpColor>
+    <R>175</R>
+    <G>75</G>
+    <B>255</B>
+  </OpColor>
+  <ModColor>
+    <R>25</R>
+    <G>175</G>
+    <B>0</B>
+  </ModColor>
+  <MemberColor>
+    <R>255</R>
+    <G>255</G>
+    <B>255</B>
+  </MemberColor>
+  <GuestColor>
+    <R>187</R>
+    <G>187</G>
+    <B>187</B>
+  </GuestColor>
+  <AllowAbove150Damage>false</AllowAbove150Damage>
+  <ShowOpMeNotifications>true</ShowOpMeNotifications>
+  <BlockSendTileSquare>true</BlockSendTileSquare>
+  <BlockRangeHack>true</BlockRangeHack>
+</Configuration>

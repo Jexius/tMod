@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace tMod_v3.Events
+{
+	public delegate void DisconnectPacketReceivedEventHandler(object sender, DisconnectPacketReceivedEventArgs e);
+
+	public class DisconnectPacketReceivedEventArgs : PacketReceivedEventArgs
+	{
+		public string Reason { get; private set; }
+
+		internal DisconnectPacketReceivedEventArgs(PacketReceivedEventArgs e)
+			: base(e)
+		{
+			int index = Start + 1;
+			Reason = ASCIIEncoding.ASCII.GetString(ReadBuffer, index, (Length - index) + Start);
+		}
+	}
+}
