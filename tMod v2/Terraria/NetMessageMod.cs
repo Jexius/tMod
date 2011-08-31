@@ -40,13 +40,6 @@ namespace Terraria
             }
         }
 
-        public static void SendDataTrick(byte[] b, int i, int i1, AsyncCallback ac, object obj)
-        {
-            Console.WriteLine("SendDataTrick");
-            byte[] b1 = (byte[])b.Clone();
-            //NetplayMod.ServerSock
-        }
-
         public static void SyncPlayers()
         {
             NetMessage.GetMethod("syncPlayers").Invoke(null, new object[0]);
