@@ -70,16 +70,40 @@ namespace Terraria
             NPC.GetMethod("SpawnOnPlayer").Invoke(null, new object[] { player, id });
         }
 
-        public static void SetDefaultsMod(dynamic inst, int type)
+        public static bool SetDefaultsMod(dynamic mob, dynamic name)
         {
-            switch (type)
-            {
-                case 0x16: // Guide
-                    // This was a "meh" update
-                    //inst.friendly = false;
-                    //inst.defense = 2;
-                    break;
-            }
+            if (XeedMod.cmobs != null)
+                lock (XeedMod.cmobs)
+                    foreach (dynamic cm in XeedMod.cmobs)
+                        if (cm.name.Equals(name))
+                            try
+                            {
+                                mob.SetDefaults(cm.GetID(), -1f);
+                                cm.ApplyTo(mob);
+                                return true;
+                            }
+                            catch (Exception ex) { Console.WriteLine(ex); }
+            return false;
+        }
+
+        public static void NPCLootMod(dynamic npc)
+        {
+            if (XeedMod.cmobs != null)
+                lock (XeedMod.cmobs)
+                    foreach (dynamic cm in XeedMod.cmobs)
+                    {
+                        if (cm.name.Equals(npc.name))
+                        {
+                            foreach (KeyValuePair<string, int> item in cm.drops)
+                            {
+                                int index = (int)ItemMod.Item.GetMethod("NewItem").Invoke(null, new object[] { (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, 0, item.Value, true });
+                                MainMod.Item[index].SetDefaults(item.Key);
+                                MainMod.Item[index].stack = item.Value;
+                                NetMessageMod.SendData(0x15, -1, -1, "", index);
+                            }
+                            return;
+                        }
+                    }
         }
 
         public static void SpawnNpc(string p)
