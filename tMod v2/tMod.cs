@@ -213,13 +213,15 @@ namespace tMod_v3
             cil.InsertBefore(instr, cil.Create(OpCodes.Brfalse, getData.Body.Instructions[getData.Body.Instructions.Count - 1]));
         }
 
-        private static MethodDefinition getMethod(TypeDefinition type, string name)
+        private static dynamic getMethod(dynamic type, dynamic name, int param = -1)
         {
             for (int i = 0; i < type.Methods.Count; i++)
             {
                 if (type.Methods[i].Name == name)
                 {
-                    return type.Methods[i];
+                    if (param >= 0 && type.Methods[i].Parameters.Count == param)
+                        return type.Methods[i];
+                    else return type.Methods[i];
                 }
             }
             throw new Exception("Method " + name + " does not exist.");
