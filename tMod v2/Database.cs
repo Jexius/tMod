@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -193,7 +193,7 @@ namespace tMod_v3
         {
             using (SQLiteCommand cmd = Sql.CreateCommand())
             {
-                cmd.CommandText = "INSERT INTO Warps (WarpId, WarpName, WarpX, WarpY) VALUES (NULL, @WarpName, @WarpX, @WarpY)";
+                cmd.CommandText = "INSERT OR REPLACE INTO Warps (WarpId, WarpName, WarpX, WarpY) VALUES (NULL, @WarpName, @WarpX, @WarpY)";
                 cmd.Parameters.Add(new SQLiteParameter("WarpName", warp));
                 cmd.Parameters.Add(new SQLiteParameter("WarpX", x));
                 cmd.Parameters.Add(new SQLiteParameter("WarpY", y));
@@ -227,7 +227,7 @@ namespace tMod_v3
         {
             using (SQLiteCommand cmd = Sql.CreateCommand())
             {
-                cmd.CommandText = "INSERT INTO Users (UserId, Username, Password, LastIp) VALUES (NULL, @Username, @Password, @LastIp)";
+                cmd.CommandText = "INSERT OR REPLACE INTO Users (UserId, Username, Password, LastIp) VALUES (NULL, @Username, @Password, @LastIp)";
                 cmd.Parameters.Add(new SQLiteParameter("Username", MainMod.Player[userid].name));
                 cmd.Parameters.Add(new SQLiteParameter("Password", hash));
                 cmd.Parameters.Add(new SQLiteParameter("LastIp", Session.Sessions[userid].IpAddress));
@@ -317,7 +317,7 @@ namespace tMod_v3
         {
             using (SQLiteCommand cmd = Sql.CreateCommand())
             {
-                cmd.CommandText = "INSERT INTO Sessions (SessionId, Username, IpAddress) VALUES (NULL, @Username, @IpAddress)";
+                cmd.CommandText = "INSERT OR REPLACE INTO Sessions (SessionId, Username, IpAddress) VALUES (NULL, @Username, @IpAddress)";
                 cmd.Parameters.Add(new SQLiteParameter("Username", username));
                 cmd.Parameters.Add(new SQLiteParameter("IpAddress", ip));
                 cmd.ExecuteNonQuery();
@@ -331,16 +331,25 @@ namespace tMod_v3
 
         public static void InsertEdit(int session, byte action, byte type, int x, int y)
         {
-            using (SQLiteCommand cmd = Sql.CreateCommand())
-            {
-                cmd.CommandText = "INSERT INTO TileEdits (EditId, SessionId, Action, Type, X, Y) VALUES (NULL, @SessionId, @Action, @Type, @X, @Y)";
-                cmd.Parameters.Add(new SQLiteParameter("@SessionId", session));
-                cmd.Parameters.Add(new SQLiteParameter("@Action", action));
-                cmd.Parameters.Add(new SQLiteParameter("@Type", type));
-                cmd.Parameters.Add(new SQLiteParameter("@X", x));
-                cmd.Parameters.Add(new SQLiteParameter("@Y", y));
-                cmd.ExecuteNonQuery();
-            }
+            if (MainMod.Config.AsyncMode) ThreadPool.QueueUserWorkItem(delegate { InsertEditAsync(session, action, type, x, y); });
+            else InsertEditAsync(session, action, type, x, y);
+        }
+
+        private static object insertEdit = new object();
+
+        public static void InsertEditAsync(int session, byte action, byte type, int x, int y)
+        {
+            lock (insertEdit)
+                using (SQLiteCommand cmd = Sql.CreateCommand())
+                {
+                    cmd.CommandText = "INSERT OR REPLACE INTO TileEdits (EditId, SessionId, Action, Type, X, Y) VALUES (NULL, @SessionId, @Action, @Type, @X, @Y)";
+                    cmd.Parameters.Add(new SQLiteParameter("@SessionId", session));
+                    cmd.Parameters.Add(new SQLiteParameter("@Action", action));
+                    cmd.Parameters.Add(new SQLiteParameter("@Type", type));
+                    cmd.Parameters.Add(new SQLiteParameter("@X", x));
+                    cmd.Parameters.Add(new SQLiteParameter("@Y", y));
+                    cmd.ExecuteNonQuery();
+                }
         }
 
         public static void Trim()
@@ -348,19 +357,24 @@ namespace tMod_v3
             Execute("DELETE FROM TileEdits WHERE EditId NOT IN (SELECT TOP(@Maximum) EditId FROM TileEdits)", new SQLiteParameter("Maximum", MainMod.Config.MaximumRollbackEntries));
         }
 
-        public static int Rollback(string username)
+        private static object rollback = new object();
+
+        public static void Rollback(int caller, string username)
+        {
+            if (MainMod.Config.AsyncMode) ThreadPool.QueueUserWorkItem(delegate { RollbackAsync(caller, username); });
+            else RollbackAsync(caller, username);
+        }
+
+        public static void RollbackAsync(int caller, string username)
         {
             NetMessageMod.BroadcastMessage("Starting player rollback, server may lag for a moment.");
             List<Edit> edits = new List<Edit>();
-
             using (SQLiteCommand cmd = Sql.CreateCommand())
             {
                 cmd.CommandText = "SELECT * FROM TileEdits WHERE SessionId IN (SELECT SessionId FROM Sessions WHERE Username=@Username) ORDER BY EditId DESC";
                 cmd.Parameters.Add(new SQLiteParameter("Username", username));
                 using (SQLiteDataReader results = cmd.ExecuteReader())
-                {
                     while (results.Read())
-                    {
                         edits.Add(new Edit
                         {
                             SessionId = (int)results["SessionId"],
@@ -369,27 +383,17 @@ namespace tMod_v3
                             Action = (byte)results["Action"],
                             Type = (byte)results["Type"]
                         });
-                    }
-                }
             }
-
             int retval = edits.Count;
-
-            foreach (Edit e in edits)
-            {
-                e.Rollback();
-            }
-
+            foreach (Edit e in edits) e.Rollback();
             using (SQLiteCommand cmd = Sql.CreateCommand())
             {
                 cmd.CommandText = "DELETE FROM TileEdits WHERE SessionId IN (SELECT SessionId FROM Sessions WHERE Username=@Username)";
                 cmd.Parameters.Add(new SQLiteParameter("Username", username));
                 cmd.ExecuteNonQuery();
             }
-
             NetMessageMod.BroadcastMessage("Player rollback finished.");
-
-            return retval;
+            Session.Sessions[caller].SendText(retval < 1 ? "Could not find any edits." : "Rolled back edit" + retval + (retval == 1 ? "." : "s."));
         }
 
         public static int Rollback(int session)
