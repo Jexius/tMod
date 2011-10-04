@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -144,19 +144,24 @@ namespace tMod_v3
 
         private static void DownloadFile(string downloadFrom, string saveTo)
         {
-            WebClient client = new WebClient();
-            client.DownloadFile(downloadFrom, saveTo);
-            client.Dispose();
+            using (WebClient client = new WebClient())
+            {
+                client.Proxy = new WebProxy();
+                client.DownloadFile(downloadFrom, saveTo);
+            }
         }
 
         private static string GetText(string from)
         {
             Uri site = new Uri(from);
             WebRequest wReq = WebRequest.Create(site);
-            WebResponse wResp = wReq.GetResponse();
-            Stream respStream = wResp.GetResponseStream();
-            StreamReader reader = new StreamReader(respStream, Encoding.ASCII);
-            return reader.ReadToEnd();
+            wReq.Proxy = new WebProxy();
+            using (WebResponse wResp = wReq.GetResponse())
+            {
+                Stream respStream = wResp.GetResponseStream();
+                StreamReader reader = new StreamReader(respStream, Encoding.ASCII);
+                return reader.ReadToEnd();
+            }
         }
     }
 }
