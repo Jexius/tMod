@@ -9,23 +9,23 @@ namespace Terraria
     {
         public static Type Item;
 
-        public static int NewItem(int a, int b, int c, int d, int e, int f, bool g = false)
+        public static int NewItem(int X, int Y, int Width, int Height, int Type, int Stack = 1, bool noBroadcast = false)
         {
-            return (int)Item.GetMethod("NewItem").Invoke(null, new object[] { a, b, c, d, e, f, g });
+            return (int)Item.GetMethod("NewItem").Invoke(null, new object[] { X, Y, Width, Height, Type, Stack, noBroadcast });
         }
 
-        public static void SetDefaultsMod(dynamic inst, int type)
-        {/*
-            if (GlobalSettings.Default.ForceAutoReuse)
-            {
-                inst.autoReuse = true;
-            }
-            if (GlobalSettings.Default.ForceShootSpeed >= 0)
-            {
-                //inst.shootSpeed = GlobalSettings.Default.ForceShootSpeed;
-                //inst.useTime = 100;
-                //inst.shoot = 0;
-            }*/
+        public static bool SetDefaultsMod(string name, dynamic item)
+        {
+            foreach (dynamic ci in XeedMod.GetItems().ToArray())
+                if (ci.name.Equals(name))
+                    try
+                    {
+                        item.SetDefaults(ci.GetID(), true);
+                        ci.ApplyTo(item);
+                        return true;
+                    }
+                    catch (Exception ex) { Console.WriteLine(ex); }
+            return false;
         }
     }
 }
