@@ -1,10 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Net;
-using Microsoft.Xna.Framework;
 using Terraria;
 using tMod_v3.Events;
 using System.IO;
@@ -878,9 +877,8 @@ namespace tMod_v3
                 Session.Sessions[player].SendError("Player could not be found.");
                 return;
             }
-            Vector2 pos = MainMod.Player[player].position;
-            Session.Sessions[plr].Teleport((int)pos.X / 16, (int)pos.Y / 16);
-            Session.Sessions[plr].SendText("You are being teleported to " + Session.Sessions[player].Username + ". This may involve death.");
+            Session.Sessions[plr].Teleport((int)MainMod.Player[player].position.X / 16, (int)MainMod.Player[player].position.Y / 16);
+            Session.Sessions[plr].SendText("You are being teleported to " + Session.Sessions[player].Username + '.');
         }
 
         private static void OnButterfingersCommand(int player, string target)
@@ -955,8 +953,7 @@ namespace tMod_v3
                 Session.Sessions[player].SendError("Player could not be found.");
                 return;
             }
-            Vector2 pos = MainMod.Player[plr].position;
-            Session.Sessions[player].Teleport((int)pos.X / 16, (int)pos.Y / 16);
+            Session.Sessions[player].Teleport((int)MainMod.Player[player].position.X / 16, (int)MainMod.Player[player].position.Y / 16);
         }
 
         private static void OnTpCommand(int player)
@@ -1073,8 +1070,7 @@ namespace tMod_v3
 
         private static void OnRollbackCommand(int player, string p)
         {
-            int edits = Database.Rollback(p);
-            Session.Sessions[player].SendText(edits < 1 ? "Could not find any edits." : "Rolled back " + edits + (edits == 1 ? " edit." : " edits."));
+            Database.Rollback(player, p);
         }
 
         private static void OnLavaCommand(int player)
@@ -1295,8 +1291,7 @@ namespace tMod_v3
             }
             else
             {
-                Vector2 pos = MainMod.Player[player].position;
-                int index = NPCMod.NewNPC((int)pos.X, (int)pos.Y, id);
+                int index = NPCMod.NewNPC((int)MainMod.Player[player].position.X, (int)MainMod.Player[player].position.Y, id);
                 MainMod.Npc[index].target = player;
                 NetMessageMod.SendData(0x17, -1, -1, "", index, 0f, 0f, 0f);
             }
@@ -1327,8 +1322,7 @@ namespace tMod_v3
                 }
                 else
                 {
-                    Vector2 pos = MainMod.Player[player].position;
-                    int index = NPCMod.NewNPC((int)pos.X, (int)pos.Y, id);
+                    int index = NPCMod.NewNPC((int)MainMod.Player[player].position.X, (int)MainMod.Player[player].position.Y, id);
                     MainMod.Npc[index].target = player;
                     NetMessageMod.SendData(0x17, -1, -1, "", index, 0f, 0f, 0f);
                 }
@@ -1426,7 +1420,7 @@ namespace tMod_v3
                 {
                     if (MainMod.Player[i].team == MainMod.Player[player].team)
                     {
-                        Color c = MainMod.TeamColor[MainMod.Player[player].team];
+                        dynamic c = MainMod.TeamColor[MainMod.Player[player].team];
                         NetMessageMod.SendData(0x19, i, -1, p, player, c.R, c.G, c.B);
                     }
                 }
