@@ -1,9 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
 using tMod_v3;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace Terraria
 {
@@ -11,7 +13,30 @@ namespace Terraria
     {
         public static Type NetMessage;
 
-        public static dynamic[] Buffer
+        private static BackgroundWorker bgw = new BackgroundWorker();
+        private static List<object[]> queue = new List<object[]>();
+
+        static NetMessageMod() { bgw.DoWork += new DoWorkEventHandler(bgw_DoWork); bgw.WorkerSupportsCancellation = true; bgw.RunWorkerAsync(); }
+
+        private static void bgw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (!bgw.CancellationPending)
+            {
+                if (queue.Count > 0)
+                {
+                    try
+                    {
+                        MethodBase meth = (MethodBase)queue[0][0];
+                        meth.Invoke(null, (object[])queue[0][1]);
+                    }
+                    catch (Exception ex) { Console.WriteLine(DateTime.Now + " ASYNC"); Console.WriteLine(ex); }
+                    queue.RemoveAt(0);
+                }
+                else System.Threading.Thread.Sleep(5);
+            }
+        }
+
+        static dynamic[] Buffer
         {
             get
             {
@@ -23,14 +48,27 @@ namespace Terraria
             }
         }
 
+        public static void FireAsync(System.Reflection.MethodBase method, object[] args)
+        {
+            queue.Add(new object[] { method, args });
+        }
+
         public static void SendData(int msgType, int remoteClient = -1, int ignoreClient = -1, string d = "", int e = 0, float f = 0f, float g = 0f, float h = 0f, int i = 0)
         {
-            NetMessage.GetMethod("SendData").Invoke(null, new object[] { msgType, remoteClient, ignoreClient, d, e, f, g, h, i });
+            if (MainMod.Config.AsyncMode) FireAsync(NetMessage.GetMethod("SendData"), new object[] { msgType, remoteClient, ignoreClient, d, e, f, g, h, i });
+            else NetMessage.GetMethod("SendData").Invoke(null, new object[] { msgType, remoteClient, ignoreClient, d, e, f, g, h, i });
+        }
+
+        public static void SendSection(int whoAmi, int sectionX, int sectionY)
+        {
+            if (MainMod.Config.AsyncMode) FireAsync(NetMessage.GetMethod("SendSection"), new object[] { whoAmi, sectionX, sectionY });
+            else NetMessage.GetMethod("SendSection").Invoke(null, new object[] { whoAmi, sectionX, sectionY });
         }
 
         public static void SendTileSquare(int plr, int x, int y, int size)
         {
-            try
+            if (MainMod.Config.AsyncMode) FireAsync(NetMessage.GetMethod("SendTileSquare"), new object[] { plr, x, y, size });
+            else try
             {
                 NetMessage.GetMethod("SendTileSquare").Invoke(null, new object[] { plr, x, y, size });
             }
@@ -42,7 +80,8 @@ namespace Terraria
 
         public static void SyncPlayers()
         {
-            NetMessage.GetMethod("syncPlayers").Invoke(null, new object[0]);
+            if (MainMod.Config.AsyncMode) FireAsync(NetMessage.GetMethod("syncPlayers"), new object[0]);
+            else NetMessage.GetMethod("syncPlayers").Invoke(null, new object[0]);
         }
 
         public static void BroadcastMessage(string text)
