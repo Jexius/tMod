@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using Terraria;
 using System.Text;
 using System.Collections.Specialized;
 
@@ -15,34 +15,15 @@ namespace tMod_v3
         public Group Member = new Group();
         public List<Group> CustomGroups = new List<Group>();
 
-        public Group GetCustomGroup(string name)
+        public Group GetGroup(string name)
         {
-            //Console.WriteLine("GetCustomGroup: {0}", name);
-            // in case it's not custom, I don't know why I called it GetCustomGroup
             name = name.ToLower();
-            if (name == "ops")
-            {
-                return Ops;
-            }
-            else if (name == "mods")
-            {
-                return Mods;
-            }
-            else if (name == "default")
-            {
-                return Default;
-            }
-            else if (name == "member")
-            {
-                return Member;
-            }
+            if (name.Equals("ops")) return Ops;
+            else if (name.Equals("mods")) return Mods;
+            else if (name.Equals("default")) return Default;
+            else if (name.Equals("member")) return Member;
             foreach (Group group in CustomGroups)
-            {
-                if (group.GroupName.ToLower() == name)
-                {
-                    return group;
-                }
-            }
+                if (group.GroupName.ToLower().Equals(name)) return group;
             return Default;
         }
     }
@@ -56,5 +37,7 @@ namespace tMod_v3
         public Rgb ChatColor = new Rgb(255, 255, 255);
         public string DerivesFrom = "Default";
         public bool CanBuild = true;
+
+        public bool HasPermission(string cmd) { return GroupPermissions.Contains(cmd) || GroupPermissions.Contains("*") || this != MainMod.Groups.Default && MainMod.Groups.GetGroup(DerivesFrom).HasPermission(cmd); }
     }
 }
