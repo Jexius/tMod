@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +6,6 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Diagnostics;
 using System.Net;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using System.Threading;
 using tMod_v3;
@@ -42,13 +41,29 @@ namespace Terraria
             if (!File.Exists(Config.WorldPath))
             {
                 // god damned Terraria, I'll fix this next release.
-                Console.WriteLine("Generating new world (large, generate in official server or in-game for different size)...");
+                Console.WriteLine("Generating new world.");
                 generating = true;
-                Thread tr = new Thread(CheckText);
-                tr.Start();
+                ThreadPool.QueueUserWorkItem(delegate { CheckText(); });
                 MainMod.WorldPathName = Config.WorldPath;
-                MainMod.MaxTilesX = 8400;
+                //Console.Write("Specify world width (MIN 8400, MAX 2147483647 but it's veeeeery slow!): ");
+                //string str = Console.ReadLine();
+                //int width = 8400;
+                //if (int.TryParse(str, out width) && width >= 8400)
+                //{
+                //    MainMod.MaxTilesX = width;
+                //    if (width > short.MaxValue) Console.WriteLine("It's gonna take sooome time... Well, you have been warned!");
+                //}
+                //else
+                //{
+                //    Console.WriteLine("An error occured. World width set to 8400.");
+                    MainMod.MaxTilesX = 8400;
+                //}
                 MainMod.MaxTilesY = 2400;
+                MainMod.Tile = (dynamic)tMod.main.Assembly.GetType("Terraria.Tile").MakeArrayType(2).GetConstructor(new Type[] { typeof(int), typeof(int) }).Invoke(new object[] { MainMod.MaxTilesX, MainMod.MaxTilesY });
+                tMod.main.GetField("bottomWorld").SetValue(null, MainMod.MaxTilesY * 0x10);
+                tMod.main.GetField("rightWorld").SetValue(null, MainMod.MaxTilesX * 0x10);
+                tMod.main.GetField("maxSectionsX").SetValue(null, MainMod.MaxTilesX / 200);
+                tMod.main.GetField("maxSectionsY").SetValue(null, MainMod.MaxTilesY / 150);
                 MainMod.DedServer = true;
                 MainMod.ShowSplash = false;
                 MainMod.Initialize();
@@ -56,7 +71,7 @@ namespace Terraria
                 WorldGenMod.SaveLock = false;
                 MainMod.SkipMenu = false;
                 WorldGenMod.CreateNewWorld();
-                while (MainMod.MenuState == 10){Thread.Sleep(100);} // workaround
+                while (MainMod.MenuState == 10) { Thread.Sleep(200); } // workaround
                 generating = false;
                 Process.Start("tMod v3.exe");
                 Environment.Exit(0);
@@ -85,7 +100,7 @@ namespace Terraria
             Console.Title = "tMod v" + tModVersion;
             Console.WriteLine("tMod v{0}", tModVersion);
             Console.WriteLine("http://tmod.biz/");
-            Console.WriteLine("If you paid for this, get your money back, it's free!");
+            Console.WriteLine("If you paid for this, get your money back, it's FREE!");
             Console.WriteLine();
             Console.WriteLine("Loading .NET Plugins...");
             Console.WriteLine();
@@ -96,7 +111,7 @@ namespace Terraria
             LuaHandler.LuaInit();
             Console.WriteLine();
             Console.WriteLine("Done! tMod has started!");
-
+            if (MainMod.Config.AsyncMode) Console.WriteLine("Running in Async mode!");
         }
 
         public static void CheckForUpdates()
@@ -136,17 +151,22 @@ namespace Terraria
         {
             Uri site = new Uri(from);
             WebRequest wReq = WebRequest.Create(site);
-            WebResponse wResp = wReq.GetResponse();
-            Stream respStream = wResp.GetResponseStream();
-            StreamReader reader = new StreamReader(respStream, Encoding.ASCII);
-            return reader.ReadToEnd();
+            wReq.Proxy = new WebProxy();
+            using (WebResponse wResp = wReq.GetResponse())
+            {
+                Stream respStream = wResp.GetResponseStream();
+                StreamReader reader = new StreamReader(respStream, Encoding.ASCII);
+                return reader.ReadToEnd();
+            }
         }
 
         private static void DownloadFile(string downloadFrom, string saveTo)
         {
-            WebClient client = new WebClient();
-            client.DownloadFile(downloadFrom, saveTo);
-            client.Dispose();
+            using (WebClient client = new WebClient())
+            {
+                client.Proxy = new WebProxy();
+                client.DownloadFile(downloadFrom, saveTo);
+            }
         }
 
         public static void Notice(string notice)
@@ -176,15 +196,7 @@ namespace Terraria
 
         public static bool HasPermission(int player, string command)
         {
-            // this is a mess, I really need to clean it up! D:
-            try
-            {
-                return (Session.Sessions[player].IsLoggedIn && Groups.Member.GroupPermissions.Contains(command)) || Session.Sessions[player].Group.GroupPermissions.Contains(command) || Session.Sessions[player].Group.GroupPermissions.Contains("*") || MainMod.Groups.GetCustomGroup(Session.Sessions[player].Group.DerivesFrom).GroupPermissions.Contains(command) || IsOp(player) || (IsMod(player) && MainMod.Groups.Mods.GroupPermissions.Contains(command));
-            }
-            catch
-            {
-                return false;
-            }
+            return (Session.Sessions[player].IsLoggedIn && Session.Sessions[player].Group.HasPermission(command)) || MainMod.Groups.Default.HasPermission(command);
         }
 
         public static void SaveConfig()
