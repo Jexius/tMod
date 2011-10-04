@@ -12,5 +12,21 @@ namespace tMod_v3.Terraria
             Console.WriteLine("New projectile mod: {0}", Type);
             return true;
         }
+
+        public static bool SetDefaultsMod(dynamic proj, dynamic type)
+        {
+            if (XeedMod.cprojs != null)
+                lock (XeedMod.cprojs)
+                    foreach (dynamic cm in XeedMod.cprojs)
+                        if (cm.type == type)
+                            try
+                            {
+                                proj.SetDefaults(cm.GetID());
+                                cm.ApplyTo(proj);
+                                return true;
+                            }
+                            catch (Exception ex) { Console.WriteLine(ex); }
+            return false;
+        }
     }
 }
