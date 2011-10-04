@@ -15,7 +15,7 @@ namespace Terraria
 {
     public static partial class MainMod
     {
-        public static string tModVersion = "3.1.5_1";
+        public static string tModVersion = "3.2";
         public static bool IsServer = true;
         public static dynamic main;
         public static Configuration Config;
@@ -35,7 +35,7 @@ namespace Terraria
         static bool generating;
         public static void DedServ()
         {
-            Console.Title = "tMod v3";
+            Console.Title = "tMod v" + tModVersion;
             if(Config.CheckForUpdates) CheckForUpdates();
             MainMod.LoadWorlds();
             if (!File.Exists(Config.WorldPath))
