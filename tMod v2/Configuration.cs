@@ -9,6 +9,7 @@ namespace tMod_v3
     [Serializable]
     public class Configuration
     {
+        public bool AsyncMod = true;
         public string BindAddress = "0.0.0.0";
         public int BindPort = 7777;
         public int PlayerSlots = 100;
